@@ -9,3 +9,5 @@ Includes:
 - Eslint
 
 Bring whatever else you want on your own. 
+
+Meant personal usage, but you can use it too, I guess.
