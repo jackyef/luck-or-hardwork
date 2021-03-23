@@ -1,3 +1,4 @@
+import { Button, FormControl, FormLabel, Input } from '@chakra-ui/react';
 import { useRef } from 'react';
 
 interface Props {
@@ -20,17 +21,21 @@ export const VariablesForm = ({ onSubmit }: Props) => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        How many people will be taking part in this?
-        <input ref={populationRef} type="number" name="population" />
-        How much (%) does luck factor here?
-        <input
-          ref={luckFactorRef}
-          type="number"
-          min="0"
-          max="100"
-          name="luckFactor"
-        />
-        <button type="submit">Submit</button>
+        <FormControl>
+          <FormLabel>How many people will be taking part in this?</FormLabel>
+          <Input ref={populationRef} type="number" name="population" />
+        </FormControl>
+        <FormControl mt={4}>
+          <FormLabel>How much (%) does luck factor here?</FormLabel>
+          <Input
+            ref={luckFactorRef}
+            type="number"
+            min="0"
+            max="100"
+            name="luckFactor"
+          />
+        </FormControl>
+        <Button mt={4} type="submit">Submit</Button>
       </form>
     </div>
   );
