@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/button';
-import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
+import { ArrowBackIcon, ArrowForwardIcon, RepeatIcon } from '@chakra-ui/icons';
 import { Center, Flex, Heading, Stack, Text } from '@chakra-ui/layout';
 
 import { Card } from '@/components/Card/Card';
@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { createPerson, Person } from '@/lib/person';
 import { PersonCard } from '../PersonCard/PersonCard';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
+import { commonTransition } from '@/lib/animation';
 
 interface Props {
   onNext: () => void
@@ -55,15 +56,42 @@ export const Step2 = ({ onNext, onPrev }: Props) => {
       </Stack>
 
       <Center mt={8}>
-        <Button
-          onClick={handleGeneratePerson}
-          colorScheme={maxAmountOfPeopleReached ? 'red' : 'telegram'}
-          disabled={maxAmountOfPeopleReached}
-        >
-          {maxAmountOfPeopleReached
-            ? 'Whoa, that is enough!'
-            : 'Generate a person!'}
-        </Button>
+        <AnimateSharedLayout>
+          <AnimatePresence>
+            <motion.div
+              layout
+              {...commonTransition}
+            >
+              <Button
+                onClick={handleGeneratePerson}
+                colorScheme="telegram"
+                disabled={maxAmountOfPeopleReached}
+              >
+                {maxAmountOfPeopleReached
+                  ? 'Whoa, that is enough!'
+                  : 'Generate a person!'}
+              </Button>
+            </motion.div>
+
+            {maxAmountOfPeopleReached && (
+              <motion.div
+                layout
+                {...commonTransition}
+              >
+                <Button
+                  ml={4}
+                  leftIcon={<RepeatIcon />}
+                  onClick={() => {
+                    setPeople([]);
+                  }}
+                  colorScheme="purple"
+                >
+                  Reset
+                </Button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </AnimateSharedLayout>
       </Center>
 
       <AnimateSharedLayout>
@@ -73,13 +101,7 @@ export const Step2 = ({ onNext, onPrev }: Props) => {
               <motion.div
                 key={index}
                 layout
-                initial={{ x: 300, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: -300, opacity: 0 }}
-                transition={{
-                  x: { type: 'spring', stiffness: 300, damping: 25 },
-                  opacity: { duration: 0.2 },
-                }}
+                {...commonTransition}
               >
                 <PersonCard {...p} w={[120, 140]} />
               </motion.div>
@@ -92,9 +114,7 @@ export const Step2 = ({ onNext, onPrev }: Props) => {
             <motion.div
               layout
               layoutId="outro"
-              initial={{ x: 300, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: -300, opacity: 0 }}
+              {...commonTransition}
             >
               <Stack mt={8} spacing={4}>
                 <Text>
@@ -121,13 +141,7 @@ export const Step2 = ({ onNext, onPrev }: Props) => {
             </Button>
             {stepCompleted && (
               <motion.div
-                initial={{ x: 300, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: -300, opacity: 0 }}
-                transition={{
-                  x: { type: 'spring', stiffness: 300, damping: 25 },
-                  opacity: { duration: 0.2 },
-                }}
+                {...commonTransition}
               >
                 <Button
                   colorScheme="whatsapp"

@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/button';
-import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
+import { ArrowBackIcon, ArrowForwardIcon, RepeatIcon } from '@chakra-ui/icons';
 import { Center, Code, Flex, Heading, Stack, Text } from '@chakra-ui/layout';
 
 import { Card } from '@/components/Card/Card';
@@ -7,6 +7,7 @@ import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { createPerson, getTopNPerson, Person } from '@/lib/person';
 import { PersonCard } from '../PersonCard/PersonCard';
+import { commonTransition } from '@/lib/animation';
 
 interface Props {
   onNext: () => void
@@ -30,6 +31,12 @@ export const Step3 = ({ onNext, onPrev }: Props) => {
     }
 
     setTop10(getTopNPerson(people, 0.01, 10))
+  }
+
+  const handleReset = () => {
+    setTop10([]);
+
+    setTimeout(handleCalculateTop10)
   }
 
   useEffect(() => {
@@ -77,30 +84,57 @@ export const Step3 = ({ onNext, onPrev }: Props) => {
             </Button>
           </Center>
         ) : (
-            <Flex flexWrap="wrap" gridGap={4} justifyContent="center" mt={8}>
-              <AnimatePresence>
-                {top10.map((p, index) => (
-                  <motion.div
-                    key={index}
-                    layout
-                    initial={{ x: 300, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: -300, opacity: 0 }}
-                    transition={{
-                      x: { type: 'spring', stiffness: 300, damping: 25, delay: index * 0.2 },
-                      opacity: { duration: 0.2, delay: index * 0.2 },
-                    }}
+            <AnimateSharedLayout>
+              <Center mt={8}>
+                <motion.div
+                  layout
+                  {...commonTransition}
+                >
+                  <Button
+                    ml={4}
+                    leftIcon={<RepeatIcon />}
+                    onClick={handleReset}
+                    colorScheme="purple"
+                    isLoading={isCalculating}
                   >
-                    <PersonCard {...p} w={[120, 140]} />
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </Flex>
+                    Re-generate
+                  </Button>
+                </motion.div>
+              </Center>
+              {!isCalculating && (
+                <motion.div
+                  layout
+                  {...commonTransition}
+                >
+                  <Flex flexWrap="wrap" gridGap={4} justifyContent="center" mt={8}>
+                    <AnimatePresence>
+                      {top10.map((p, index) => (
+                        <motion.div
+                          key={index}
+                          layout
+                          {...commonTransition}
+                          transition={{
+                            x: { type: 'spring', stiffness: 300, damping: 25, delay: index * 0.2 },
+                            opacity: { duration: 0.2, delay: index * 0.2 },
+                          }}
+                        >
+                          <PersonCard {...p} w={[120, 140]} />
+                        </motion.div>
+                      ))}
+                    </AnimatePresence>
+                  </Flex>
+                </motion.div>
+              )}
+            </AnimateSharedLayout>
           )}
 
         {stepCompleted && (
           <Stack mt={8} spacing={4}>
-            <Text>Interesting! Notice that most of the people in the top 10 have a pretty high luck, even with the luck factor being only 1%!</Text>
+            <Text>
+              Interesting! Notice that most of the people in the top 10 have a pretty
+              high luck, even with the luck factor being only 1%! You can try to re-generate the
+              top 10 a few times to confirm this.
+            </Text>
             <Text>Does this mean luck is more important than hard work/skill? Not quite. Let&apos;s take a look at another illustration.</Text>
           </Stack>
         )}
@@ -116,13 +150,7 @@ export const Step3 = ({ onNext, onPrev }: Props) => {
             </Button>
             {stepCompleted && (
               <motion.div
-                initial={{ x: 300, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: -300, opacity: 0 }}
-                transition={{
-                  x: { type: 'spring', stiffness: 300, damping: 25 },
-                  opacity: { duration: 0.2 },
-                }}
+                {...commonTransition}
               >
                 <Button
                   colorScheme="whatsapp"

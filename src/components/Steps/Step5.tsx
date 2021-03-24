@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { createPerson, getTopNPerson, Person } from '@/lib/person';
 import { PersonCard } from '../PersonCard/PersonCard';
 import { VariablesForm } from '../VariablesForm/VariablesForm';
+import { commonTransition } from '@/lib/animation';
 
 interface Props {
   onNext: () => void
@@ -75,9 +76,7 @@ export const Step5 = ({ onNext, onPrev }: Props) => {
                 <motion.div
                   key={index}
                   layout
-                  initial={{ x: 300, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  exit={{ x: -300, opacity: 0 }}
+                  {...commonTransition}
                   transition={{
                     x: { type: 'spring', stiffness: 300, damping: 25, delay: index * 0.2 },
                     opacity: { duration: 0.2, delay: index * 0.2 },
@@ -118,13 +117,8 @@ export const Step5 = ({ onNext, onPrev }: Props) => {
             </Button>
             {stepCompleted && (
               <motion.div
-                initial={{ x: 300, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: -300, opacity: 0 }}
-                transition={{
-                  x: { type: 'spring', stiffness: 300, damping: 25 },
-                  opacity: { duration: 0.2 },
-                }}
+                layout
+                {...commonTransition}
               >
                 <Button
                   colorScheme="whatsapp"
