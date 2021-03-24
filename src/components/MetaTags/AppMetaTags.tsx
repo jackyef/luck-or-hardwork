@@ -7,8 +7,7 @@ export const publicUrl = 'https://luck-or-hardwork.vercel.app';
 export const defaultTitle = 'Is success determined by luck 🍀 or hard work 🛠️?';
 const defaultDescription =
   `Some people think that it's their hardwork that led them to their success. Others think that luck is the one that led to one's success.`;
-const defaultOgImage =
-  'https://jackyef-og-img.vercel.app/**Is%20success%20determined%20by%20luck%20%F0%9F%8D%80%20or%20hard%20work%20%F0%9F%9B%A0%EF%B8%8F%3F**.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fmy-site-2-pi.vercel.app%2Fmonochrome%2Flogo.svg';
+const defaultOgImage = 'https://luck-or-hardwork.vercel.app/og-windows.png';
 
 interface Props {
   image?: string;

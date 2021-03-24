@@ -1,4 +1,4 @@
-# luck-or-hardwork
+![cover-picture](./public/og-windows.png)
 
 ## Is success determined by luck 🍀 or hard work 🛠️?
 
