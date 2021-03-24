@@ -3,12 +3,12 @@ import { Step1 } from '@/components/Steps/Step1';
 import { Step2 } from '@/components/Steps/Step2';
 import { Step3 } from '@/components/Steps/Step3';
 import { Step4 } from '@/components/Steps/Step4';
+import { Step5 } from '@/components/Steps/Step5';
+import { Step6 } from '@/components/Steps/Step6';
 
 export default function Home() {
   return (
     <div>
-      {/* Some dialogs */}
-
       <Journey
         renderPages={(currentPage, callbacks) => {
           if (currentPage === 0) {
@@ -34,24 +34,20 @@ export default function Home() {
               <Step4 {...callbacks} />
             );
           }
-        }}
-      />
 
-      {/* Setup variables */}
-
-      {/* <VariablesForm
-        onSubmit={({ population, luckFactor }) => {
-          const people = [];
-
-          for (let i = 0; i < population; i += 1) {
-            // generate people
-            people.push(createPerson());
+          if (currentPage === 4) {
+            return (
+              <Step5 {...callbacks} />
+            );
           }
 
-          // get top 10 people
-          console.log(getTopNPerson(people, luckFactor, 10));
+          if (currentPage === 5) {
+            return (
+              <Step6 {...callbacks} />
+            );
+          }
         }}
-      /> */}
+      />
     </div>
   );
 }

@@ -113,7 +113,7 @@ export const Step2 = ({ onNext, onPrev }: Props) => {
         <motion.div layout layoutId="navigation">
           <Flex justifyContent="space-between" mt={8}>
             <Button
-              colorScheme="yellow"
+              colorScheme="orange"
               leftIcon={<ArrowBackIcon />}
               onClick={onPrev}
             >

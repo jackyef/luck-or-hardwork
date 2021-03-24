@@ -3,9 +3,10 @@ import { useRef } from 'react';
 
 interface Props {
   onSubmit: (values: { population: number; luckFactor: number }) => void;
+  isLoading?: boolean
 }
 
-export const VariablesForm = ({ onSubmit }: Props) => {
+export const VariablesForm = ({ onSubmit, isLoading = false }: Props) => {
   const populationRef = useRef<HTMLInputElement>(null);
   const luckFactorRef = useRef<HTMLInputElement>(null);
 
@@ -19,24 +20,23 @@ export const VariablesForm = ({ onSubmit }: Props) => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <FormControl>
-          <FormLabel>How many people will be taking part in this?</FormLabel>
-          <Input ref={populationRef} type="number" name="population" />
-        </FormControl>
-        <FormControl mt={4}>
-          <FormLabel>How much (%) does luck factor here?</FormLabel>
-          <Input
-            ref={luckFactorRef}
-            type="number"
-            min="0"
-            max="100"
-            name="luckFactor"
-          />
-        </FormControl>
-        <Button mt={4} type="submit">Submit</Button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <FormControl>
+        <FormLabel>How many people should we choose from?</FormLabel>
+        <Input ref={populationRef} type="number" name="population" defaultValue={500} min={10} max={50000} />
+      </FormControl>
+      <FormControl mt={4}>
+        <FormLabel>How much (%) should luck factor here?</FormLabel>
+        <Input
+          ref={luckFactorRef}
+          defaultValue={1}
+          type="number"
+          min="0"
+          max="100"
+          name="luckFactor"
+        />
+      </FormControl>
+      <Button colorScheme="telegram" isLoading={isLoading} mt={4} type="submit">Calculate</Button>
+    </form>
   );
 };
