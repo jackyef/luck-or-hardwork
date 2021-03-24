@@ -52,8 +52,22 @@ export const Journey = ({ initialPage = 0, renderPages }: Props) => {
         }}
       >
         {renderPages(page, {
-          onNext: () => paginate(1),
-          onPrev: () => paginate(-1)
+          onNext: () => {
+            window.scroll({
+              top: 0,
+              left: 0,
+              behavior: 'smooth'
+            });
+            paginate(1);
+          },
+          onPrev: () => {
+            window.scroll({
+              top: 0,
+              left: 0,
+              behavior: 'smooth'
+            });
+            paginate(-1);
+          },
         })}
       </motion.div>
     </AnimatePresence>
