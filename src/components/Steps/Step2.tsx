@@ -21,13 +21,15 @@ export const Step2 = ({ onSetStep }: Props) => {
 
     setPeople((prev) => [...prev, person]);
 
-    if (people.length === 7) {
+    if (people.length === 3) {
       setStepCompleted(true);
     }
   };
 
+  const maxAmountOfPeopleReached = people.length >= 4;
+
   return (
-    <Card>
+    <Card overflowX="hidden">
       <Heading as="h1" fontSize="2xl" mb={4}>
         Illustration
       </Heading>
@@ -41,7 +43,7 @@ export const Step2 = ({ onSetStep }: Props) => {
         </Text>
         <Text>
           For the purpose of the illustration, we will generate 10,000 people
-          with different amount of skill and luck. Click the button below to
+          with random amount of skill and luck. Click the button below to
           start!
         </Text>
       </Stack>
@@ -49,10 +51,12 @@ export const Step2 = ({ onSetStep }: Props) => {
       <Center mt={8}>
         <Button
           onClick={handleGeneratePerson}
-          colorScheme={stepCompleted ? 'red' : 'telegram'}
-          disabled={stepCompleted}
+          colorScheme={maxAmountOfPeopleReached ? 'red' : 'telegram'}
+          disabled={maxAmountOfPeopleReached}
         >
-          {stepCompleted ? 'Whoa, that is enough!' : 'Generate a person!'}
+          {maxAmountOfPeopleReached
+            ? 'Whoa, that is enough!'
+            : 'Generate a person!'}
         </Button>
       </Center>
 
@@ -71,7 +75,7 @@ export const Step2 = ({ onSetStep }: Props) => {
                   opacity: { duration: 0.2 },
                 }}
               >
-                <PersonCard {...p} w="150px" />
+                <PersonCard {...p} w={[120, 140]} />
               </motion.div>
             ))}
           </AnimatePresence>
@@ -80,6 +84,8 @@ export const Step2 = ({ onSetStep }: Props) => {
         {stepCompleted && (
           <AnimatePresence>
             <motion.div
+              layout
+              layoutId="outro"
               initial={{ x: 300, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -300, opacity: 0 }}
@@ -98,7 +104,7 @@ export const Step2 = ({ onSetStep }: Props) => {
           </AnimatePresence>
         )}
 
-        <motion.div layout>
+        <motion.div layout layoutId="navigation">
           <Flex justifyContent="space-between" mt={8}>
             <Button
               colorScheme="yellow"
