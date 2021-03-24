@@ -18,7 +18,7 @@ export const Step1 = ({ onNext }: Props) => {
       <Stack spacing={4}>
         <Text>
           Some people think that it&apos;s their hardwork that led them to their success.
-          Others think that luck is the one that led to one&apos; success.</Text>
+          Others think that luck is the one that led to one&apos;s success.</Text>
         <Text>
           I personally feel that there are truths to both of these thinking.
           Let&apos;s see how much luck and hard work factor in success.
