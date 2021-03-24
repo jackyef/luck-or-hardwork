@@ -1,9 +1,12 @@
+import { useRouter } from 'next/router';
 import { Button } from '@chakra-ui/button';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { Box, Center, Divider, Flex, Heading, Link, Stack, Text } from '@chakra-ui/layout';
 
 import { Card } from '@/components/Card/Card';
 import { YouTubeEmbed } from '../YouTubeEmbed/YouTubeEmbed';
+import { TwitterShare } from '../Social/TwitterShare';
+import { defaultTitle, publicUrl } from '../MetaTags/AppMetaTags';
 
 interface Props {
   onNext: () => void
@@ -12,6 +15,8 @@ interface Props {
 
 
 export const Step6 = ({ onPrev }: Props) => {
+  const router = useRouter();
+  
   return (
     <Card>
       <Heading as="h1" fontSize="2xl" mb={4}>
@@ -25,7 +30,12 @@ export const Step6 = ({ onPrev }: Props) => {
         <Text>
           This illustration is of course overly simplified. In reality,
           there are too many variables to take into account to simulate correctly.
-          </Text>
+        </Text>
+        <TwitterShare
+          text={`${defaultTitle} ${publicUrl}${router.pathname}`}
+        >
+          Share on Twitter
+        </TwitterShare>
       </Stack>
 
       <Divider my={8} />
@@ -34,8 +44,9 @@ export const Step6 = ({ onPrev }: Props) => {
         <Text>
           Build with{' '}
           <Link isExternal href="https://nextjs.org/">Next.js</Link> +{' '}
-          <Link isExternal href="https://chakra-ui.com/">Chakra UI</Link>{' '}
-            ⚡ by{' '}
+          <Link isExternal href="https://chakra-ui.com/">Chakra UI</Link> +{' '}
+          <Link isExternal href="https://www.framer.com/motion/">Framer Motion</Link>{' '}
+          ⚡ by{' '}
           <Link isExternal href="https://twitter.com/jackyef__">@jackyef__</Link>
         </Text>
 

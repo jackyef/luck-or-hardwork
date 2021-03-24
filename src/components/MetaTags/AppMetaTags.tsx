@@ -4,7 +4,7 @@ import Head from 'next/head'
 
 export const publicUrl = 'https://luck-or-hardwork.vercel.app';
 
-const defaultTitle = 'Is success determined by luck 🍀 or hard work 🛠️?';
+export const defaultTitle = 'Is success determined by luck 🍀 or hard work 🛠️?';
 const defaultDescription =
   `Some people think that it's their hardwork that led them to their success. Others think that luck is the one that led to one's success.`;
 const defaultOgImage =
