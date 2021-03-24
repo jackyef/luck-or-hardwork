@@ -58,8 +58,7 @@ export const Step3 = ({ onNext, onPrev }: Props) => {
           Top 10 people
         </Heading>
         <Stack spacing={4}>
-          <Text>Let&apos;s see how much luck factor in getting the job!</Text>
-          <Text>We will calculate the top 10 people for the job by the following simple formula:</Text>
+          <Text>With the luck factor being 1%, we will calculate the top 10 people (out of 10,000) for the job by the following simple formula:</Text>
           <Center>
             <Code p={4} rounded="md" colorScheme="pink">
               score = skill * 0.99 + luck * 0.01
@@ -102,7 +101,7 @@ export const Step3 = ({ onNext, onPrev }: Props) => {
         {stepCompleted && (
           <Stack mt={8} spacing={4}>
             <Text>Interesting! Notice that most of the people in the top 10 have a pretty high luck, even with the luck factor being only 1%!</Text>
-            <Text>Does this mean luck more important than hard work/skill? Not quite. Let&apos;s take a look at another illustration.</Text>
+            <Text>Does this mean luck is more important than hard work/skill? Not quite. Let&apos;s take a look at another illustration.</Text>
           </Stack>
         )}
 

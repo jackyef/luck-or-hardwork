@@ -20,7 +20,7 @@ export const Step6 = ({ onPrev }: Props) => {
       <Stack spacing={4}>
         <Text>
           If there&apos;s anything we can take from this illustration, it&apos;s that <em>hard work is definitely important!</em>.
-            But still, <em>when the competition is fierce, being lucky can give you the edge to succeed.</em>
+          But still, <em>when the competition is fierce, being lucky can give you the edge to succeed.</em>
         </Text>
         <Text>
           This illustration is of course overly simplified. In reality,
@@ -59,8 +59,7 @@ export const Step6 = ({ onPrev }: Props) => {
           onClick={onPrev}
         >
           Back
-            </Button>
-
+        </Button>
       </Flex>
     </Card>
   );

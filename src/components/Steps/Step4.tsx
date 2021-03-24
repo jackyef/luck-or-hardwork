@@ -59,7 +59,7 @@ export const Step4 = ({ onNext, onPrev }: Props) => {
         </Heading>
         <Stack spacing={4}>
           <Text>Let&apos;s tweak the variable a little bit!</Text>
-          <Text>Instead of having to choose top 10 people out of 10,000, now we only have 100 people to choose from.</Text>
+          <Text>Instead of having to choose top 10 people out of 10,000, we now only have 100 people to choose from.</Text>
           <Text>As a reminder, this is how we calculate the score for each person:</Text>
           <Center>
             <Code p={4} rounded="md" colorScheme="pink">
