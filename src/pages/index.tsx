@@ -2,6 +2,7 @@ import { Journey } from '@/components/Journey/Journey';
 import { Step1 } from '@/components/Steps/Step1';
 import { Step2 } from '@/components/Steps/Step2';
 import { Step3 } from '@/components/Steps/Step3';
+import { Step4 } from '@/components/Steps/Step4';
 
 export default function Home() {
   return (
@@ -25,6 +26,12 @@ export default function Home() {
           if (currentPage === 2) {
             return (
               <Step3 {...callbacks} />
+            );
+          }
+
+          if (currentPage === 3) {
+            return (
+              <Step4 {...callbacks} />
             );
           }
         }}

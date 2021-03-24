@@ -15,7 +15,7 @@ interface Props {
 
 let persistedTop10: Person[] = []
 
-export const Step3 = ({ onNext, onPrev }: Props) => {
+export const Step4 = ({ onNext, onPrev }: Props) => {
   const [top10, setTop10] = useState(persistedTop10);
   const [isCalculating, setIsCalculating] = useState(false);
   const [stepCompleted, setStepCompleted] = useState(persistedTop10.length >= 10);
@@ -25,7 +25,7 @@ export const Step3 = ({ onNext, onPrev }: Props) => {
 
     const people: Person[] = [];
 
-    for (let i = 0; i < 10000; i += 1) {
+    for (let i = 0; i < 100; i += 1) {
       people.push(createPerson())
     }
 
@@ -55,11 +55,12 @@ export const Step3 = ({ onNext, onPrev }: Props) => {
     <AnimateSharedLayout>
       <Card>
         <Heading as="h1" fontSize="2xl" mb={4}>
-          Top 10 people
+          With fewer population
         </Heading>
         <Stack spacing={4}>
-          <Text>Let&apos;s see how much luck factor in getting the job!</Text>
-          <Text>We will calculate the top 10 people for the job by the following simple formula:</Text>
+          <Text>Let&apos;s tweak the variable a little bit!</Text>
+          <Text>Instead of having to choose top 10 people out of 10,000, now we only have 100 people to choose from.</Text>
+          <Text>As a reminder, this is how we calculate the score for each person:</Text>
           <Center>
             <Code p={4} rounded="md" colorScheme="pink">
               score = skill * 0.99 + luck * 0.01
@@ -101,8 +102,7 @@ export const Step3 = ({ onNext, onPrev }: Props) => {
 
         {stepCompleted && (
           <Stack mt={8} spacing={4}>
-            <Text>Interesting! Notice that most of the people in the top 10 have a pretty high luck, even with the luck factor being only 1%!</Text>
-            <Text>Does this mean luck more important than hard work/skill? Not quite. Let&apos;s take a look at another illustration.</Text>
+            <Text>Notice that now we have more people with lower luck rating in the top 10!</Text>
           </Stack>
         )}
 
