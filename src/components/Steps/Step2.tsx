@@ -1,20 +1,26 @@
 import { Button } from '@chakra-ui/button';
 import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
-import { Box, Center, Flex, Heading, Stack, Text } from '@chakra-ui/layout';
+import { Center, Flex, Heading, Stack, Text } from '@chakra-ui/layout';
 
 import { Card } from '@/components/Card/Card';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createPerson, Person } from '@/lib/person';
 import { PersonCard } from '../PersonCard/PersonCard';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 
 interface Props {
-  onSetStep: (step: number) => void;
+  onNext: () => void
+  onPrev: () => void
 }
+let persistedPeople: Person[] = []
 
-export const Step2 = ({ onSetStep }: Props) => {
-  const [stepCompleted, setStepCompleted] = useState(false);
-  const [people, setPeople] = useState<Person[]>([]);
+export const Step2 = ({ onNext, onPrev }: Props) => {
+  const [stepCompleted, setStepCompleted] = useState(persistedPeople.length >= 4);
+  const [people, setPeople] = useState<Person[]>(persistedPeople);
+
+  useEffect(() => {
+    persistedPeople = people
+  }, [people])
 
   const handleGeneratePerson = () => {
     const person = createPerson();
@@ -90,7 +96,7 @@ export const Step2 = ({ onSetStep }: Props) => {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -300, opacity: 0 }}
             >
-              <Box mt={8}>
+              <Stack mt={8} spacing={4}>
                 <Text>
                   Imagine 10,000 of these people, with all their different
                   combination of skill and luck!
@@ -99,7 +105,7 @@ export const Step2 = ({ onSetStep }: Props) => {
                   Let&apos;s say only 10 people will be accepted for the job,
                   and the luck factor is 1%. Who do you think will get the job?
                 </Text>
-              </Box>
+              </Stack>
             </motion.div>
           </AnimatePresence>
         )}
@@ -109,7 +115,7 @@ export const Step2 = ({ onSetStep }: Props) => {
             <Button
               colorScheme="yellow"
               leftIcon={<ArrowBackIcon />}
-              onClick={() => onSetStep(1)}
+              onClick={onPrev}
             >
               Back
             </Button>
@@ -126,7 +132,7 @@ export const Step2 = ({ onSetStep }: Props) => {
                 <Button
                   colorScheme="whatsapp"
                   rightIcon={<ArrowForwardIcon />}
-                  onClick={() => onSetStep(2)}
+                  onClick={onNext}
                 >
                   Next
                 </Button>

@@ -6,17 +6,18 @@ import { Card } from '@/components/Card/Card';
 import { YouTubeEmbed } from '@/components/YouTubeEmbed/YouTubeEmbed';
 
 interface Props {
-  onSetStep: (step: number) => void;
+  onNext: () => void
+  onPrev: () => void
 }
 
-export const Step1 = ({ onSetStep }: Props) => {
+export const Step1 = ({ onNext }: Props) => {
   return (
     <Card>
       <Heading as="h1" fontSize="2xl" mb={4}>
         Is success determined by luck 🍀 or hard work 🛠️?
       </Heading>
       <Stack spacing={4}>
-        <Text>Let&apos;s how much luck factor in success.</Text>
+        <Text>Let&apos;s see how much luck factor in success.</Text>
         <Text>Inspired by this Veritasium&apos;s video:</Text>
       </Stack>
 
@@ -28,7 +29,7 @@ export const Step1 = ({ onSetStep }: Props) => {
         <Button
           colorScheme="whatsapp"
           rightIcon={<ArrowForwardIcon />}
-          onClick={() => onSetStep(2)}
+          onClick={onNext}
         >
           Start illustration
         </Button>

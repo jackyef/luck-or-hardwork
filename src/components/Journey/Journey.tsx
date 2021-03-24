@@ -1,15 +1,18 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { useState } from 'react';
 
 interface Props {
-  step: number;
-  renderStep: (step: number) => React.ReactNode;
+  initialPage?: number
+  renderPages: (currentPage: number, callbacks: {
+    onNext: () => void
+    onPrev: () => void
+  }) => React.ReactNode;
 }
 
 const variants = {
   enter: (direction: number) => {
     return {
-      x: direction < 0 ? 1000 : -1000,
+      x: direction > 0 ? 1000 : -1000,
       opacity: 0,
     };
   },
@@ -27,19 +30,17 @@ const variants = {
   },
 };
 
-export const Journey = ({ step, renderStep }: Props) => {
-  const prevStep = useRef<number>(Number.MAX_SAFE_INTEGER);
+export const Journey = ({ initialPage = 0, renderPages }: Props) => {
+  const [[page, direction], setPage] = useState([initialPage, 0]);
 
-  useEffect(() => {
-    prevStep.current = step;
-  }, [step]);
-
-  const direction = prevStep.current > step ? 1 : -1;
+  const paginate = (newDirection: number) => {
+    setPage([page + newDirection, newDirection]);
+  };
 
   return (
-    <AnimatePresence exitBeforeEnter initial={false}>
+    <AnimatePresence exitBeforeEnter custom={direction} initial={false}>
       <motion.div
-        key={step}
+        key={page}
         custom={direction}
         variants={variants}
         initial="enter"
@@ -50,7 +51,10 @@ export const Journey = ({ step, renderStep }: Props) => {
           opacity: { duration: 0.2 },
         }}
       >
-        {renderStep(step)}
+        {renderPages(page, {
+          onNext: () => paginate(1),
+          onPrev: () => paginate(-1)
+        })}
       </motion.div>
     </AnimatePresence>
   );
