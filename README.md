@@ -1,13 +1,10 @@
-# next-preact-typescript template
+# luck-or-hardwork
 
-A very simple template for starting a project with Next.js + Preact + TypeScript
-Based on [using-preact example](https://github.com/vercel/next.js/tree/canary/examples/using-preact)
+## Is success determined by luck 🍀 or hard work 🛠️?
 
-Includes:
-- TypeScript
-- Prettier
-- Eslint
+Some people think that it's their hardwork that led them to their success. 
+Others think that luck is the one that led to one's success.
 
-Bring whatever else you want on your own. 
+This simple web-app is built as a way to provide an explanation and illustration.
 
-Meant personal usage, but you can use it too, I guess.
+Access it on https://luck-or-hardwork.vercel.app/

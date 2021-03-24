@@ -65,7 +65,10 @@ export const Step3 = ({ onNext, onPrev }: Props) => {
           Top 10 people
         </Heading>
         <Stack spacing={4}>
-          <Text>With the luck factor being 1%, we will calculate the top 10 people (out of 10,000) for the job by the following simple formula:</Text>
+          <Text>
+            With the luck factor being 1%, we will calculate the top 10 people (out of 10,000) for 
+            the job by using this simple formula:
+          </Text>
           <Center>
             <Code p={4} rounded="md" colorScheme="pink">
               score = skill * 0.99 + luck * 0.01
