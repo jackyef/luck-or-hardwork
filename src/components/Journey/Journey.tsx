@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
 
 interface Props {
   initialPage?: number
@@ -30,11 +31,29 @@ const variants = {
   },
 };
 
-export const Journey = ({ initialPage = 0, renderPages }: Props) => {
-  const [[page, direction], setPage] = useState([initialPage, 0]);
+export const Journey = ({ renderPages }: Props) => {
+  const router = useRouter()
+  const page = Number(router.query.page) || 0;
+  const prevPage = useRef(0)
+  const direction = prevPage.current > page ? -1 : 1;
 
-  const paginate = (newDirection: number) => {
-    setPage([page + newDirection, newDirection]);
+  useEffect(() => {
+    prevPage.current = page;
+  }, [page])
+
+  const paginate = (increment: number) => {
+    const newPage = page + increment;
+
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+
+    router.push({
+      pathname: router.pathname,
+      search: `?page=${newPage}`,
+    }, `${router.pathname}?page=${newPage}`)
   };
 
   return (
@@ -53,19 +72,9 @@ export const Journey = ({ initialPage = 0, renderPages }: Props) => {
       >
         {renderPages(page, {
           onNext: () => {
-            window.scroll({
-              top: 0,
-              left: 0,
-              behavior: 'smooth'
-            });
             paginate(1);
           },
           onPrev: () => {
-            window.scroll({
-              top: 0,
-              left: 0,
-              behavior: 'smooth'
-            });
             paginate(-1);
           },
         })}
