@@ -5,8 +5,8 @@ import { Flex, Heading, Stack, Text } from '@chakra-ui/layout';
 import { Card } from '@/components/Card/Card';
 
 interface Props {
-  onNext: () => void
-  onPrev: () => void
+  onNext: () => void;
+  onPrev: () => void;
 }
 
 export const Step1 = ({ onNext }: Props) => {
@@ -17,11 +17,13 @@ export const Step1 = ({ onNext }: Props) => {
       </Heading>
       <Stack spacing={4}>
         <Text>
-          Some people think that it&apos;s their hardwork that led them to their success.
-          Others think that luck is the one that led to one&apos;s success.</Text>
+          Some people think that it&apos;s their hardwork that led them to their
+          success. Others think that luck is the one that led to one&apos;s
+          success.
+        </Text>
         <Text>
-          There are some truths to both of these thinking.
-          Let&apos;s see how much luck and hard work factor in success.
+          There are some truths to both of these thinking. Let&apos;s see how
+          much luck and hard work factor in success.
         </Text>
       </Stack>
 

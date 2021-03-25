@@ -116,8 +116,8 @@ export const Step4 = ({ onNext, onPrev }: Props) => {
                       layout
                       {...commonTransition}
                       transition={{
-                        x: { type: 'spring', stiffness: 300, damping: 25, delay: index * 0.2 },
-                        opacity: { duration: 0.2, delay: index * 0.2 },
+                        x: { type: 'spring', stiffness: 300, damping: 25, delay: index * 0.1 },
+                        opacity: { duration: 0.2, delay: index * 0.1 },
                       }}
                     >
                       <PersonCard {...p} w={[120, 140]} />
