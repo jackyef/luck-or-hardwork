@@ -10,18 +10,20 @@ import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 import { commonTransition } from '@/lib/animation';
 
 interface Props {
-  onNext: () => void
-  onPrev: () => void
+  onNext: () => void;
+  onPrev: () => void;
 }
-let persistedPeople: Person[] = []
+let persistedPeople: Person[] = [];
 
 export const Step2 = ({ onNext, onPrev }: Props) => {
-  const [stepCompleted, setStepCompleted] = useState(persistedPeople.length >= 4);
+  const [stepCompleted, setStepCompleted] = useState(
+    persistedPeople.length >= 4,
+  );
   const [people, setPeople] = useState<Person[]>(persistedPeople);
 
   useEffect(() => {
-    persistedPeople = people
-  }, [people])
+    persistedPeople = people;
+  }, [people]);
 
   const handleGeneratePerson = () => {
     const person = createPerson();
@@ -50,18 +52,14 @@ export const Step2 = ({ onNext, onPrev }: Props) => {
         </Text>
         <Text>
           For the purpose of the illustration, we will generate 10,000 people
-          with random amount of skill and luck. Click the button below to
-          start!
+          with random amount of skill and luck. Click the button below to start!
         </Text>
       </Stack>
 
       <Center mt={8}>
         <AnimateSharedLayout>
           <AnimatePresence>
-            <motion.div
-              layout
-              {...commonTransition}
-            >
+            <motion.div layout {...commonTransition}>
               <Button
                 onClick={handleGeneratePerson}
                 colorScheme="telegram"
@@ -74,10 +72,7 @@ export const Step2 = ({ onNext, onPrev }: Props) => {
             </motion.div>
 
             {maxAmountOfPeopleReached && (
-              <motion.div
-                layout
-                {...commonTransition}
-              >
+              <motion.div layout {...commonTransition}>
                 <Button
                   ml={4}
                   leftIcon={<RepeatIcon />}
@@ -97,12 +92,8 @@ export const Step2 = ({ onNext, onPrev }: Props) => {
       <AnimateSharedLayout>
         <Flex flexWrap="wrap" gridGap={4} justifyContent="center" mt={8}>
           <AnimatePresence>
-            {people.slice(0, 8).map((p, index) => (
-              <motion.div
-                key={index}
-                layout
-                {...commonTransition}
-              >
+            {people.map((p, index) => (
+              <motion.div key={index} layout {...commonTransition}>
                 <PersonCard {...p} w={[120, 140]} />
               </motion.div>
             ))}
@@ -111,11 +102,7 @@ export const Step2 = ({ onNext, onPrev }: Props) => {
 
         {stepCompleted && (
           <AnimatePresence>
-            <motion.div
-              layout
-              layoutId="outro"
-              {...commonTransition}
-            >
+            <motion.div layout layoutId="outro" {...commonTransition}>
               <Stack mt={8} spacing={4}>
                 <Text>
                   Imagine 10,000 of these people, with all their different
@@ -140,9 +127,7 @@ export const Step2 = ({ onNext, onPrev }: Props) => {
               Back
             </Button>
             {stepCompleted && (
-              <motion.div
-                {...commonTransition}
-              >
+              <motion.div {...commonTransition}>
                 <Button
                   colorScheme="whatsapp"
                   rightIcon={<ArrowForwardIcon />}

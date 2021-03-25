@@ -3,11 +3,14 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 
 interface Props {
-  initialPage?: number
-  renderPages: (currentPage: number, callbacks: {
-    onNext: () => void
-    onPrev: () => void
-  }) => React.ReactNode;
+  initialPage?: number;
+  renderPages: (
+    currentPage: number,
+    callbacks: {
+      onNext: () => void;
+      onPrev: () => void;
+    },
+  ) => React.ReactNode;
 }
 
 const variants = {
@@ -32,14 +35,14 @@ const variants = {
 };
 
 export const Journey = ({ renderPages }: Props) => {
-  const router = useRouter()
+  const router = useRouter();
   const page = Number(router.query.page) || 0;
-  const prevPage = useRef(0)
+  const prevPage = useRef(0);
   const direction = prevPage.current > page ? -1 : 1;
 
   useEffect(() => {
     prevPage.current = page;
-  }, [page])
+  }, [page]);
 
   const paginate = (increment: number) => {
     const newPage = page + increment;
@@ -47,13 +50,16 @@ export const Journey = ({ renderPages }: Props) => {
     window.scroll({
       top: 0,
       left: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
 
-    router.push({
-      pathname: router.pathname,
-      search: `?page=${newPage}`,
-    }, `${router.pathname}?page=${newPage}`)
+    router.push(
+      {
+        pathname: router.pathname,
+        search: `?page=${newPage}`,
+      },
+      `${router.pathname}?page=${newPage}`,
+    );
   };
 
   return (
