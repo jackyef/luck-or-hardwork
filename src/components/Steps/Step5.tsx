@@ -11,47 +11,49 @@ import { VariablesForm } from '../VariablesForm/VariablesForm';
 import { commonTransition } from '@/lib/animation';
 
 interface Props {
-  onNext: () => void
-  onPrev: () => void
+  onNext: () => void;
+  onPrev: () => void;
 }
 
-let persistedTop10: Person[] = []
+let persistedTop10: Person[] = [];
 
 export const Step5 = ({ onNext, onPrev }: Props) => {
   const [top10, setTop10] = useState(persistedTop10);
   const [isCalculating, setIsCalculating] = useState(false);
-  const [stepCompleted, setStepCompleted] = useState(persistedTop10.length >= 10);
+  const [stepCompleted, setStepCompleted] = useState(
+    persistedTop10.length >= 10,
+  );
 
   const handleCalculateTop10 = (population: number, luckFactor: number) => {
-    setIsCalculating(true)
+    setIsCalculating(true);
 
     const people: Person[] = [];
 
     for (let i = 0; i < population; i += 1) {
-      people.push(createPerson())
+      people.push(createPerson());
     }
 
-    setTop10(getTopNPerson(people, luckFactor, 10))
-  }
+    setTop10(getTopNPerson(people, luckFactor, 10));
+  };
 
   useEffect(() => {
     persistedTop10 = top10;
-  }, [top10])
+  }, [top10]);
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
 
     if (isCalculating && top10.length === 10) {
       timeout = setTimeout(() => {
-        setIsCalculating(false)
-        setStepCompleted(true)
+        setIsCalculating(false);
+        setStepCompleted(true);
       }, 1000);
     }
 
     return () => {
-      clearTimeout(timeout)
-    }
-  }, [isCalculating, top10])
+      clearTimeout(timeout);
+    };
+  }, [isCalculating, top10]);
 
   return (
     <Card>
@@ -60,13 +62,19 @@ export const Step5 = ({ onNext, onPrev }: Props) => {
           Try it yourself
         </Heading>
         <Stack spacing={4}>
-          <Text>You can tweak the variable yourself here and see how it affects the outcome</Text>
+          <Text>
+            You can tweak the variable yourself here and see how it affects the
+            outcome
+          </Text>
         </Stack>
 
         <Center py={8} px={[0, 16]}>
-          <VariablesForm isLoading={isCalculating} onSubmit={({ population, luckFactor }) => {
-            handleCalculateTop10(population, luckFactor)
-          }} />
+          <VariablesForm
+            isLoading={isCalculating}
+            onSubmit={({ population, luckFactor }) => {
+              handleCalculateTop10(population, luckFactor);
+            }}
+          />
         </Center>
 
         {!isCalculating && top10.length === 10 && (
@@ -78,7 +86,12 @@ export const Step5 = ({ onNext, onPrev }: Props) => {
                   layout
                   {...commonTransition}
                   transition={{
-                    x: { type: 'spring', stiffness: 300, damping: 25, delay: index * 0.2 },
+                    x: {
+                      type: 'spring',
+                      stiffness: 300,
+                      damping: 25,
+                      delay: index * 0.2,
+                    },
                     opacity: { duration: 0.2, delay: index * 0.2 },
                   }}
                 >
@@ -92,16 +105,23 @@ export const Step5 = ({ onNext, onPrev }: Props) => {
         {stepCompleted && (
           <Stack mt={8} spacing={4}>
             <Text>
-              Play around with it a little bit! You will notice that <em>as the number of people increases,
-              more luck will be needed to be part of the top 10</em>.
+              Play around with it a little bit! You will notice that{' '}
+              <em>
+                as the number of people increases, more luck will be needed to
+                be part of the top 10
+              </em>
+              .
             </Text>
             <Text>
-              The reason is quite simple really. When there are more people, there will be more skillful people as well.
-              If you are skillful, and you compete against people with similar skill level, luck becomes much more important!
+              The reason is quite simple really. When there are more people,
+              there will be more skillful people as well. If you are skillful,
+              and you compete against people with similar skill level, luck
+              becomes much more important!
             </Text>
             <Text>
-              When there are fewer people, chances are there are not many high-skilled people as well. In this case, skill
-              becomes much more important than luck.
+              When there are fewer people, chances are there are not many
+              high-skilled people as well. In this case, skill becomes much more
+              important than luck.
             </Text>
           </Stack>
         )}
@@ -116,10 +136,7 @@ export const Step5 = ({ onNext, onPrev }: Props) => {
               Back
             </Button>
             {stepCompleted && (
-              <motion.div
-                layout
-                {...commonTransition}
-              >
+              <motion.div layout {...commonTransition}>
                 <Button
                   colorScheme="whatsapp"
                   rightIcon={<ArrowForwardIcon />}

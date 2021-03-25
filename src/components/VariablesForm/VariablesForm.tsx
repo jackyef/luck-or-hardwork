@@ -3,7 +3,7 @@ import { useRef } from 'react';
 
 interface Props {
   onSubmit: (values: { population: number; luckFactor: number }) => void;
-  isLoading?: boolean
+  isLoading?: boolean;
 }
 
 export const VariablesForm = ({ onSubmit, isLoading = false }: Props) => {
@@ -23,7 +23,14 @@ export const VariablesForm = ({ onSubmit, isLoading = false }: Props) => {
     <form onSubmit={handleSubmit}>
       <FormControl>
         <FormLabel>How many people should we choose from?</FormLabel>
-        <Input ref={populationRef} type="number" name="population" defaultValue={500} min={10} max={50000} />
+        <Input
+          ref={populationRef}
+          type="number"
+          name="population"
+          defaultValue={500}
+          min={10}
+          max={50000}
+        />
       </FormControl>
       <FormControl mt={4}>
         <FormLabel>How much (%) should luck factor here?</FormLabel>
@@ -36,7 +43,9 @@ export const VariablesForm = ({ onSubmit, isLoading = false }: Props) => {
           name="luckFactor"
         />
       </FormControl>
-      <Button colorScheme="telegram" isLoading={isLoading} mt={4} type="submit">Calculate</Button>
+      <Button colorScheme="telegram" isLoading={isLoading} mt={4} type="submit">
+        Calculate
+      </Button>
     </form>
   );
 };

@@ -10,53 +10,55 @@ import { PersonCard } from '../PersonCard/PersonCard';
 import { commonTransition } from '@/lib/animation';
 
 interface Props {
-  onNext: () => void
-  onPrev: () => void
+  onNext: () => void;
+  onPrev: () => void;
 }
 
-let persistedTop10: Person[] = []
+let persistedTop10: Person[] = [];
 
 export const Step4 = ({ onNext, onPrev }: Props) => {
   const [top10, setTop10] = useState(persistedTop10);
   const [isCalculating, setIsCalculating] = useState(false);
-  const [stepCompleted, setStepCompleted] = useState(persistedTop10.length >= 10);
+  const [stepCompleted, setStepCompleted] = useState(
+    persistedTop10.length >= 10,
+  );
 
   const handleCalculateTop10 = () => {
-    setIsCalculating(true)
+    setIsCalculating(true);
 
     const people: Person[] = [];
 
     for (let i = 0; i < 100; i += 1) {
-      people.push(createPerson())
+      people.push(createPerson());
     }
 
-    setTop10(getTopNPerson(people, 0.01, 10))
-  }
+    setTop10(getTopNPerson(people, 0.01, 10));
+  };
 
   const handleReset = () => {
     setTop10([]);
 
-    setTimeout(handleCalculateTop10)
-  }
+    setTimeout(handleCalculateTop10);
+  };
 
   useEffect(() => {
     persistedTop10 = top10;
-  }, [top10])
+  }, [top10]);
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
 
     if (isCalculating && top10.length === 10) {
       timeout = setTimeout(() => {
-        setIsCalculating(false)
-        setStepCompleted(true)
+        setIsCalculating(false);
+        setStepCompleted(true);
       }, 1000);
     }
 
     return () => {
-      clearTimeout(timeout)
-    }
-  }, [isCalculating, top10])
+      clearTimeout(timeout);
+    };
+  }, [isCalculating, top10]);
 
   return (
     <AnimateSharedLayout>
@@ -66,8 +68,13 @@ export const Step4 = ({ onNext, onPrev }: Props) => {
         </Heading>
         <Stack spacing={4}>
           <Text>Let&apos;s tweak the variable a little bit!</Text>
-          <Text>Instead of having to choose top 10 people out of 10,000, we now only have 100 people to choose from.</Text>
-          <Text>As a reminder, this is how we calculate the score for each person:</Text>
+          <Text>
+            Instead of having to choose top 10 people out of 10,000, we now only
+            have 100 people to choose from.
+          </Text>
+          <Text>
+            As a reminder, this is how we calculate the score for each person:
+          </Text>
           <Center>
             <Code p={4} rounded="md" colorScheme="pink">
               score = skill * 0.99 + luck * 0.01
@@ -87,52 +94,59 @@ export const Step4 = ({ onNext, onPrev }: Props) => {
           </Center>
         ) : (
           <AnimateSharedLayout>
-          <Center mt={8}>
-            <motion.div
-              layout
-              {...commonTransition}
-            >
-              <Button
-                ml={4}
-                leftIcon={<RepeatIcon />}
-                onClick={handleReset}
-                colorScheme="purple"
-                isLoading={isCalculating}
-              >
-                Re-generate
-              </Button>
-            </motion.div>
-          </Center>
-          {!isCalculating && (
-            <motion.div
-              layout
-              {...commonTransition}
-            >
-              <Flex flexWrap="wrap" gridGap={4} justifyContent="center" mt={8}>
-                <AnimatePresence>
-                  {top10.map((p, index) => (
-                    <motion.div
-                      key={index}
-                      layout
-                      {...commonTransition}
-                      transition={{
-                        x: { type: 'spring', stiffness: 300, damping: 25, delay: index * 0.1 },
-                        opacity: { duration: 0.2, delay: index * 0.1 },
-                      }}
-                    >
-                      <PersonCard {...p} w={[120, 140]} />
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              </Flex>
-            </motion.div>
-          )}
-        </AnimateSharedLayout>
-      )}
+            <Center mt={8}>
+              <motion.div layout {...commonTransition}>
+                <Button
+                  ml={4}
+                  leftIcon={<RepeatIcon />}
+                  onClick={handleReset}
+                  colorScheme="purple"
+                  isLoading={isCalculating}
+                >
+                  Re-generate
+                </Button>
+              </motion.div>
+            </Center>
+            {!isCalculating && (
+              <motion.div layout {...commonTransition}>
+                <Flex
+                  flexWrap="wrap"
+                  gridGap={4}
+                  justifyContent="center"
+                  mt={8}
+                >
+                  <AnimatePresence>
+                    {top10.map((p, index) => (
+                      <motion.div
+                        key={index}
+                        layout
+                        {...commonTransition}
+                        transition={{
+                          x: {
+                            type: 'spring',
+                            stiffness: 300,
+                            damping: 25,
+                            delay: index * 0.1,
+                          },
+                          opacity: { duration: 0.2, delay: index * 0.1 },
+                        }}
+                      >
+                        <PersonCard {...p} w={[120, 140]} />
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </Flex>
+              </motion.div>
+            )}
+          </AnimateSharedLayout>
+        )}
 
         {stepCompleted && (
           <Stack mt={8} spacing={4}>
-            <Text>Notice that now we have more people with lower luck rating in the top 10!</Text>
+            <Text>
+              Notice that now we have more people with lower luck rating in the
+              top 10!
+            </Text>
           </Stack>
         )}
 
@@ -146,9 +160,7 @@ export const Step4 = ({ onNext, onPrev }: Props) => {
               Back
             </Button>
             {stepCompleted && (
-              <motion.div
-                {...commonTransition}
-              >
+              <motion.div {...commonTransition}>
                 <Button
                   colorScheme="whatsapp"
                   rightIcon={<ArrowForwardIcon />}

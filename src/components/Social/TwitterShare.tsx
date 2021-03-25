@@ -1,4 +1,4 @@
-import { Link } from "@chakra-ui/react";
+import { Link } from '@chakra-ui/react';
 
 interface Props {
   text: string;

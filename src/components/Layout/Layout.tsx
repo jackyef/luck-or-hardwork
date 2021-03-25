@@ -1,4 +1,4 @@
-import { Container } from "@chakra-ui/react"
+import { Container } from '@chakra-ui/react';
 
 export const Layout: React.FC = ({ children }) => {
   return (
@@ -13,5 +13,5 @@ export const Layout: React.FC = ({ children }) => {
     >
       {children}
     </Container>
-  )
-}
+  );
+};

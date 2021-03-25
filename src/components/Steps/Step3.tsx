@@ -10,53 +10,55 @@ import { PersonCard } from '../PersonCard/PersonCard';
 import { commonTransition } from '@/lib/animation';
 
 interface Props {
-  onNext: () => void
-  onPrev: () => void
+  onNext: () => void;
+  onPrev: () => void;
 }
 
-let persistedTop10: Person[] = []
+let persistedTop10: Person[] = [];
 
 export const Step3 = ({ onNext, onPrev }: Props) => {
   const [top10, setTop10] = useState(persistedTop10);
   const [isCalculating, setIsCalculating] = useState(false);
-  const [stepCompleted, setStepCompleted] = useState(persistedTop10.length >= 10);
+  const [stepCompleted, setStepCompleted] = useState(
+    persistedTop10.length >= 10,
+  );
 
   const handleCalculateTop10 = () => {
-    setIsCalculating(true)
+    setIsCalculating(true);
 
     const people: Person[] = [];
 
     for (let i = 0; i < 10000; i += 1) {
-      people.push(createPerson())
+      people.push(createPerson());
     }
 
-    setTop10(getTopNPerson(people, 0.01, 10))
-  }
+    setTop10(getTopNPerson(people, 0.01, 10));
+  };
 
   const handleReset = () => {
     setTop10([]);
 
-    setTimeout(handleCalculateTop10)
-  }
+    setTimeout(handleCalculateTop10);
+  };
 
   useEffect(() => {
     persistedTop10 = top10;
-  }, [top10])
+  }, [top10]);
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
 
     if (isCalculating && top10.length === 10) {
       timeout = setTimeout(() => {
-        setIsCalculating(false)
-        setStepCompleted(true)
+        setIsCalculating(false);
+        setStepCompleted(true);
       }, 1000);
     }
 
     return () => {
-      clearTimeout(timeout)
-    }
-  }, [isCalculating, top10])
+      clearTimeout(timeout);
+    };
+  }, [isCalculating, top10]);
 
   return (
     <AnimateSharedLayout>
@@ -66,8 +68,8 @@ export const Step3 = ({ onNext, onPrev }: Props) => {
         </Heading>
         <Stack spacing={4}>
           <Text>
-            With the luck factor being 1%, we will calculate the top 10 people (out of 10,000) for 
-            the job by using this simple formula:
+            With the luck factor being 1%, we will calculate the top 10 people
+            (out of 10,000) for the job by using this simple formula:
           </Text>
           <Center>
             <Code p={4} rounded="md" colorScheme="pink">
@@ -87,58 +89,65 @@ export const Step3 = ({ onNext, onPrev }: Props) => {
             </Button>
           </Center>
         ) : (
-            <AnimateSharedLayout>
-              <Center mt={8}>
-                <motion.div
-                  layout
-                  {...commonTransition}
+          <AnimateSharedLayout>
+            <Center mt={8}>
+              <motion.div layout {...commonTransition}>
+                <Button
+                  ml={4}
+                  leftIcon={<RepeatIcon />}
+                  onClick={handleReset}
+                  colorScheme="purple"
+                  isLoading={isCalculating}
                 >
-                  <Button
-                    ml={4}
-                    leftIcon={<RepeatIcon />}
-                    onClick={handleReset}
-                    colorScheme="purple"
-                    isLoading={isCalculating}
-                  >
-                    Re-generate
-                  </Button>
-                </motion.div>
-              </Center>
-              {!isCalculating && (
-                <motion.div
-                  layout
-                  {...commonTransition}
+                  Re-generate
+                </Button>
+              </motion.div>
+            </Center>
+            {!isCalculating && (
+              <motion.div layout {...commonTransition}>
+                <Flex
+                  flexWrap="wrap"
+                  gridGap={4}
+                  justifyContent="center"
+                  mt={8}
                 >
-                  <Flex flexWrap="wrap" gridGap={4} justifyContent="center" mt={8}>
-                    <AnimatePresence>
-                      {top10.map((p, index) => (
-                        <motion.div
-                          key={index}
-                          layout
-                          {...commonTransition}
-                          transition={{
-                            x: { type: 'spring', stiffness: 300, damping: 25, delay: index * 0.1 },
-                            opacity: { duration: 0.2, delay: index * 0.1 },
-                          }}
-                        >
-                          <PersonCard {...p} w={[120, 140]} />
-                        </motion.div>
-                      ))}
-                    </AnimatePresence>
-                  </Flex>
-                </motion.div>
-              )}
-            </AnimateSharedLayout>
-          )}
+                  <AnimatePresence>
+                    {top10.map((p, index) => (
+                      <motion.div
+                        key={index}
+                        layout
+                        {...commonTransition}
+                        transition={{
+                          x: {
+                            type: 'spring',
+                            stiffness: 300,
+                            damping: 25,
+                            delay: index * 0.1,
+                          },
+                          opacity: { duration: 0.2, delay: index * 0.1 },
+                        }}
+                      >
+                        <PersonCard {...p} w={[120, 140]} />
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </Flex>
+              </motion.div>
+            )}
+          </AnimateSharedLayout>
+        )}
 
         {stepCompleted && (
           <Stack mt={8} spacing={4}>
             <Text>
-              Interesting! Notice that most of the people in the top 10 have a pretty
-              high luck, even with the luck factor being only 1%! You can try to re-generate the
-              top 10 a few times to confirm this.
+              Interesting! Notice that most of the people in the top 10 have a
+              pretty high luck, even with the luck factor being only 1%! You can
+              try to re-generate the top 10 a few times to confirm this.
             </Text>
-            <Text>Does this mean luck is more important than hard work/skill? Not quite. Let&apos;s take a look at another illustration.</Text>
+            <Text>
+              Does this mean luck is more important than hard work/skill? Not
+              quite. Let&apos;s take a look at another illustration.
+            </Text>
           </Stack>
         )}
 
@@ -152,9 +161,7 @@ export const Step3 = ({ onNext, onPrev }: Props) => {
               Back
             </Button>
             {stepCompleted && (
-              <motion.div
-                {...commonTransition}
-              >
+              <motion.div {...commonTransition}>
                 <Button
                   colorScheme="whatsapp"
                   rightIcon={<ArrowForwardIcon />}
