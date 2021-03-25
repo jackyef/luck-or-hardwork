@@ -33,8 +33,7 @@ export const Step6 = ({ onPrev }: Props) => {
       <Stack spacing={4}>
         <Text>
           If there&apos;s anything we can take from this illustration, it&apos;s
-          that <em>hard work is definitely important!</em>
-          But still,{' '}
+          that <em>hard work is definitely important!</em> But still,{' '}
           <em>
             when the competition is fierce, being lucky can give you the edge to
             succeed.
