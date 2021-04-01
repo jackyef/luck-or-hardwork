@@ -52,7 +52,7 @@ export const Step6 = ({ onPrev }: Props) => {
 
       <Stack spacing={4}>
         <Text>
-          Build with{' '}
+          Built with{' '}
           <Link isExternal href="https://nextjs.org/">
             Next.js
           </Link>{' '}
